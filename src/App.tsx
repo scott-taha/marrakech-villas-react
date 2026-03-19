@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { LanguageGate } from './components/LanguageGate';
 import { MainSite } from './components/MainSite';
 import { BookingPage } from './components/booking/BookingPage';
