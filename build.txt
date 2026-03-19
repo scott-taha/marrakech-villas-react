@@ -1,0 +1,10 @@
+
+> marrakech-villas-react@0.0.0 build
+> tsc -b && vite build
+
+src/App.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/App.tsx(2,66): error TS2307: Cannot find module 'react-router-dom' or its corresponding type declarations.
+src/components/LanguageGate.tsx(2,29): error TS2307: Cannot find module 'react-router-dom' or its corresponding type declarations.
+src/components/MainSite.tsx(2,40): error TS2307: Cannot find module 'react-router-dom' or its corresponding type declarations.
+src/components/MainSite.tsx(3,24): error TS1484: 'LanguageCode' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/MainSite.tsx(4,76): error TS2307: Cannot find module 'lucide-react' or its corresponding type declarations.
