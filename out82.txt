@@ -1,0 +1,13 @@
+﻿[?25l[2K[1G[36m?[39m [1mA components.json file already exists. Would you like to overwrite it?[22m [90m┬╗[39m [90m(y/N)[39m[2K[1G[2K[1G[32mÔêÜ[39m [1mA components.json file already exists. Would you like to overwrite it?[22m [90m...[39m yes
+[?25h[?25l[2K[1G[36m?[39m [1mWould you like to re-install existing UI components?[22m [90m┬╗[39m [90m(y/N)[39m[2K[1G[2K[1G[32mÔêÜ[39m [1mWould you like to re-install existing UI components?[22m [90m...[39m no
+[?25h[?25l[36m?[39m [1mSelect a component library[22m [90m┬╗[39m [90m- Use arrow-keys. Return to submit.[39m
+[36m>[39m   [36m[4mRadix[39m[24m[90m[39m
+    Base[90m[39m
+[2K[1G[32mÔêÜ[39m [1mSelect a component library[22m [90m┬╗[39m Radix
+[?25h[?25l[36m?[39m [1mWhich preset would you like to use?[22m [90m┬╗[39m [90m- Use arrow-keys. Return to submit.[39m
+[36m>[39m   [36m[4mNova[39m[24m[90m - Lucide / Geist[39m
+    Vega[90m[39m
+    Maia[90m[39m
+    Lyra[90m[39m
+    Mira[90m[39m
+    Custom[90m[39m

@@ -4,6 +4,8 @@ import {
   Fence, TreeDeciduous, CheckCircle2, Phone, Sparkles,
   Gift, ShieldCheck, RotateCcw, Calendar, Mail,
 } from 'lucide-react';
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 /* ─────────────────── PRICING ─────────────────── */
 type FinitionLevel = 'simple' | 'haute-gamme' | 'luxe';
@@ -80,7 +82,6 @@ const STEP_META: Record<StepId, { label: string; tagline: string; img: string }>
 const REVEAL_IMG = '/est-villa.png';
 
 /* ─────────────────── SHARED UI ─────────────────── */
-const inputCls = 'w-full border border-gray-200 rounded px-4 py-3 text-sm text-gray-800 bg-white placeholder-gray-300 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-200 transition-all duration-200';
 
 /** Premium dark luxury nav row */
 function NavRow({ onBack, onNext, nextLabel = 'Continuer', disabled = false }:
@@ -88,16 +89,16 @@ function NavRow({ onBack, onNext, nextLabel = 'Continuer', disabled = false }:
   return (
     <div className="flex items-center justify-between pt-8 mt-10 border-t border-gray-100">
       {onBack
-        ? <button onClick={onBack}
+        ? <Button variant="ghost" onClick={onBack}
             className="flex items-center gap-2 text-xs text-gray-400 hover:text-gray-700 uppercase tracking-widest transition-colors duration-200">
             <ArrowLeft size={13} /> Retour
-          </button>
+          </Button>
         : <span />}
       {onNext && (
-        <button onClick={onNext} disabled={disabled}
+        <Button onClick={onNext} disabled={disabled}
           className="flex items-center gap-3 px-8 py-4 bg-gray-900 text-white text-xs font-medium rounded-lg tracking-widest uppercase hover:bg-gray-800 active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200">
           {nextLabel} <ArrowRight size={13} />
-        </button>
+        </Button>
       )}
     </div>
   );
@@ -106,10 +107,10 @@ function NavRow({ onBack, onNext, nextLabel = 'Continuer', disabled = false }:
 /** Toggleable card for Step 1 (project type) */
 function ChoiceCard({ selected, onClick, children }: { selected: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
-    <button onClick={onClick}
-      className={`w-full text-left rounded-xl border-2 px-6 py-5 transition-all duration-200 ${selected ? 'border-gray-900 bg-stone-100' : 'border-gray-200 bg-white hover:border-gray-300'}`}>
+    <Button variant="outline" onClick={onClick}
+      className={`h-auto w-full justify-start text-left rounded-xl border-2 px-6 py-5 transition-all duration-200 ${selected ? 'border-gray-900 bg-stone-100' : 'border-gray-200 bg-white hover:border-gray-300'}`}>
       {children}
-    </button>
+    </Button>
   );
 }
 
@@ -198,13 +199,13 @@ function StepSpecs({ d, upd, onNext, onBack }: { d: EstData; upd: (u: Partial<Es
         <div className="flex justify-between text-xs text-gray-300 mb-6"><span>50 m²</span><span>700 m²</span></div>
         <div className="flex flex-wrap gap-2">
           {[100, 150, 200, 250, 300, 400, 500].map(v => (
-            <button key={v} onClick={() => upd({ surface: v })}
-              className={`px-4 py-1.5 text-xs rounded-full border transition-all duration-200 ${
+            <Button variant="outline" size="sm" key={v} onClick={() => upd({ surface: v })}
+              className={`rounded-full border transition-all duration-200 ${
                 d.surface === v
                   ? 'border-gray-900 bg-gray-900 text-white'
                   : 'border-gray-200 text-gray-400 hover:border-gray-400'}`}>
               {v} m²
-            </button>
+            </Button>
           ))}
         </div>
       </div>
@@ -213,18 +214,18 @@ function StepSpecs({ d, upd, onNext, onBack }: { d: EstData; upd: (u: Partial<Es
       <div className="pb-10 border-b border-gray-100">
         <p className="text-xs font-medium text-gray-400 uppercase tracking-widest mb-8">Nombre d'étages</p>
         <div className="flex items-center gap-10">
-          <button onClick={() => upd({ etage: Math.max(0, d.etage - 1) })}
-            className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-300 text-gray-400 text-2xl hover:border-gray-900 hover:text-gray-900 transition-colors duration-200">
+          <Button variant="outline" size="icon" onClick={() => upd({ etage: Math.max(0, d.etage - 1) })}
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-300 text-gray-400 text-2xl hover:border-gray-900 hover:text-gray-900 hover:bg-transparent transition-colors duration-200">
             −
-          </button>
+          </Button>
           <div className="text-center">
             <span className="font-serif text-6xl font-light text-gray-900 leading-none">{d.etage}</span>
             <p className="text-xs text-gray-400 mt-3 tracking-widest uppercase">{d.etage === 0 ? 'Plain-pied' : d.etage === 1 ? 'R+1' : `R+${d.etage}`}</p>
           </div>
-          <button onClick={() => upd({ etage: Math.min(5, d.etage + 1) })}
-            className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-300 text-gray-400 text-2xl hover:border-gray-900 hover:text-gray-900 transition-colors duration-200">
+          <Button variant="outline" size="icon" onClick={() => upd({ etage: Math.min(5, d.etage + 1) })}
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-300 text-gray-400 text-2xl hover:border-gray-900 hover:text-gray-900 hover:bg-transparent transition-colors duration-200">
             +
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -236,22 +237,20 @@ function StepSpecs({ d, upd, onNext, onBack }: { d: EstData; upd: (u: Partial<Es
             {fLevels.map(l => {
               const sel = d.finition === l.id;
               return (
-                <button key={l.id} onClick={() => upd({ finition: l.id })}
-                  className={`w-full text-left p-6 rounded-xl border transition-all duration-300 ${
+                <Button variant="outline" key={l.id} onClick={() => upd({ finition: l.id })}
+                  className={`h-auto w-full justify-between items-center text-left p-6 rounded-xl border transition-all duration-300 ${
                     sel
                       ? 'border-2 border-gray-900 bg-stone-100 shadow-sm'
                       : 'border border-gray-200 bg-white hover:shadow-md hover:-translate-y-0.5'}`}>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className={`font-serif text-base font-semibold mb-1 ${sel ? 'text-gray-900' : 'text-gray-700'}`}>{l.label}</p>
-                      <p className={`text-sm leading-relaxed ${sel ? 'text-gray-600' : 'text-gray-400'}`}>{l.sub}</p>
-                    </div>
-                    <div className={`flex h-5 w-5 shrink-0 ml-4 items-center justify-center rounded-full border-2 transition-all ${
-                      sel ? 'border-gray-900 bg-gray-900' : 'border-gray-300'}`}>
-                      {sel && <div className="w-2 h-2 rounded-full bg-white" />}
-                    </div>
+                  <div className="flex flex-col items-start gap-1">
+                    <p className={`font-serif text-base font-semibold ${sel ? 'text-gray-900' : 'text-gray-700'}`}>{l.label}</p>
+                    <p className={`text-sm leading-relaxed whitespace-normal ${sel ? 'text-gray-600' : 'text-gray-400'}`}>{l.sub}</p>
                   </div>
-                </button>
+                  <div className={`flex h-5 w-5 shrink-0 ml-4 items-center justify-center rounded-full border-2 transition-all ${
+                    sel ? 'border-gray-900 bg-gray-900' : 'border-gray-300'}`}>
+                    {sel && <div className="w-2 h-2 rounded-full bg-white" />}
+                  </div>
+                </Button>
               );
             })}
           </div>
@@ -267,13 +266,13 @@ function PackGrid<T extends string>({ value, options, onChange }: { value: T; op
   return (
     <div className="grid grid-cols-2 gap-2">
       {options.map(o => (
-        <button key={o.id} onClick={() => onChange(o.id)}
-          className={`rounded-lg border py-3.5 text-sm font-medium transition-all duration-200 ${
+        <Button variant="outline" key={o.id} onClick={() => onChange(o.id)}
+          className={`h-auto rounded-lg border py-3.5 text-sm font-medium transition-all duration-200 ${
             value === o.id
               ? 'border-2 border-gray-900 bg-stone-100 text-gray-900'
               : 'border border-gray-200 text-gray-600 hover:border-gray-400'}`}>
           {o.label}
-        </button>
+        </Button>
       ))}
     </div>
   );
@@ -297,13 +296,13 @@ function SliderBlock({ label, value, min, max, step, unit, presets, onChange }:
       <div className="flex justify-between text-xs text-gray-300 mb-5"><span>{min} {unit}</span><span>{max} {unit}</span></div>
       <div className="flex flex-wrap gap-2">
         {presets.map(v => (
-          <button key={v} onClick={() => onChange(v)}
-            className={`px-3.5 py-1.5 text-xs rounded-full border transition-all duration-200 ${
+          <Button variant="outline" size="sm" key={v} onClick={() => onChange(v)}
+            className={`rounded-full border transition-all duration-200 ${
               value === v
-                ? 'border-gray-900 bg-gray-900 text-white'
+                ? 'border-gray-900 bg-gray-900 text-white hover:bg-gray-800'
                 : 'border-gray-200 text-gray-400 hover:border-gray-400'}`}>
             {v} {unit}
-          </button>
+          </Button>
         ))}
       </div>
     </div>
@@ -427,22 +426,22 @@ function StepContact({ d, upd, onSubmit, onBack }: { d: EstData; upd: (u: Partia
         ].map(({ f, lbl, ph, type }) => (
           <div key={f}>
             <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-widest">{lbl}</label>
-            <input type={type} placeholder={ph} value={d.contact[f]} onChange={e => set(f, e.target.value)} className={inputCls} />
+            <Input type={type} placeholder={ph} value={d.contact[f]} onChange={(e: any) => set(f, e.target.value)} />
           </div>
         ))}
       </div>
 
       <div className="mt-7">
-        <button onClick={() => ok && onSubmit()} disabled={!ok}
+        <Button size="lg" onClick={() => ok && onSubmit()} disabled={!ok}
           className="w-full flex items-center justify-center gap-2 py-4 bg-gray-900 text-white text-xs font-medium rounded-lg tracking-widest uppercase hover:bg-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200">
           <Sparkles size={14} /> Révéler mon estimation
-        </button>
+        </Button>
         <p className="text-center text-xs text-gray-400 mt-3">Données confidentielles — jamais revendues.</p>
       </div>
       <div className="mt-5 text-center">
-        <button onClick={onBack} className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 mx-auto uppercase tracking-widest transition-colors">
+        <Button variant="ghost" onClick={onBack} className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 mx-auto uppercase tracking-widest transition-colors hover:bg-transparent">
           <ArrowLeft size={12} /> Retour
-        </button>
+        </Button>
       </div>
     </div>
   );
@@ -528,10 +527,10 @@ function RevealView({ d, onRestart }: { d: EstData; onRestart: () => void }) {
               className="flex items-center justify-center gap-2 py-4 bg-gray-900 text-white text-xs font-medium rounded-lg tracking-widest uppercase hover:bg-gray-800 transition-colors">
               <Phone size={13} /> Nous appeler maintenant
             </a>
-            <button onClick={onRestart}
-              className="flex items-center justify-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 py-3 uppercase tracking-widest transition-colors">
+            <Button variant="ghost" onClick={onRestart}
+              className="flex items-center justify-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 py-3 uppercase tracking-widest transition-colors hover:bg-transparent">
               <RotateCcw size={12} /> Nouvelle estimation
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -588,7 +587,7 @@ export function CostEstimator({ isOpen, onClose }: { isOpen: boolean; onClose: (
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-200 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-md" onClick={handleClose} />
 
@@ -597,7 +596,7 @@ export function CostEstimator({ isOpen, onClose }: { isOpen: boolean; onClose: (
         {submitted ? <RevealView d={d} onRestart={restart} /> : (
           <>
             {/* ── LEFT IMAGE PANEL ── */}
-            <div className="hidden md:flex w-[42%] shrink-0 relative flex-col h-full">
+            <div className="hidden md:flex w-[42%] shrink-0 relative flex-col h-full bg-black">
               <img src={dispImg} alt={meta.label}
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ opacity: imgOpacity, transition: 'opacity 0.4s ease' }} />
@@ -626,10 +625,10 @@ export function CostEstimator({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   <div className="h-3 w-px bg-gray-200" />
                   <span className="text-xs text-[#dca54c] font-semibold">{Math.round(((stepIdx + 1) / STEPS.length) * 100)}%</span>
                 </div>
-                <button onClick={handleClose}
+                <Button variant="ghost" size="icon" onClick={handleClose}
                   className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-gray-400 hover:text-gray-700 hover:border-gray-400 transition-colors">
                   <X size={15} />
-                </button>
+                </Button>
               </div>
               {/* Progress bar */}
               <div className="h-[2px] bg-gray-100 shrink-0">

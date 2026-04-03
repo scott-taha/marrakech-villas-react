@@ -2,6 +2,8 @@ import { HashRouter as Router, Routes, Route, Navigate, useNavigate, useLocation
 import { LanguageGate } from './components/LanguageGate';
 import { MainSite } from './components/MainSite';
 import { BookingPage } from './components/booking/BookingPage';
+import { BlogLayout } from './layouts/BlogLayout';
+import { BlogIndex } from './components/blog/BlogIndex';
 import { LanguageProvider, useLang } from './context/LanguageContext';
 import { translations } from './locales';
 import { useEffect } from 'react';
@@ -40,6 +42,16 @@ function AppRoutes() {
       <Route path="/booking" element={<BookingPage />} />
       {Object.keys(translations).map((code) => (
         <Route key={`booking-${code}`} path={`/${code}/booking`} element={<BookingPage />} />
+      ))}
+
+      {/* Blog Magazine Routes */}
+      <Route path="/blog" element={<BlogLayout />}>
+        <Route index element={<BlogIndex />} />
+      </Route>
+      {Object.keys(translations).map((code) => (
+        <Route key={`blog-${code}`} path={`/${code}/blog`} element={<BlogLayout />}>
+          <Route index element={<BlogIndex />} />
+        </Route>
       ))}
 
       {/* Catch-all */}

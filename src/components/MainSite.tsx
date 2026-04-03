@@ -8,6 +8,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import Lenis from 'lenis';
 import { CostEstimator } from './CostEstimator';
+import { motion } from 'framer-motion';
+import { AuroraBackground } from './ui/AuroraBackground';
+import { TypewriterEffect } from './ui/TypewriterEffect';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -176,16 +179,13 @@ export function MainSite() {
       </nav>
 
       {/* ── Hero ── */}
-      <header ref={heroRef} className="hero-section">
-        <video className="hero-video" src="/Luxury_villa_infinity_202603180642.mp4" autoPlay loop muted playsInline />
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.22) 50%, rgba(0,0,0,0.65) 100%)', pointerEvents:'none' }} />
-        <div className="hero-content" style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', gap:'1.75rem' }}>
+      <AuroraBackground className="hero-section" videoSrc="/Luxury_villa_infinity_202603180642.mp4" videoPoster="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80" {...({ ref: heroRef } as any)}>
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.22) 50%, rgba(0,0,0,0.65) 100%)', pointerEvents:'none', zIndex: 10 }} />
+        <div className="hero-content relative z-20 flex flex-col items-center justify-center text-center gap-7">
           <p style={{ fontSize:'0.7rem', letterSpacing:'0.35em', color:'rgba(255,255,255,0.45)', textTransform:'uppercase', fontWeight:300 }}>
             Marrakech · Prestige Construction
           </p>
-          <h1 style={{ fontFamily:'Georgia,serif', fontWeight:300, fontSize:'clamp(2.4rem,6vw,5rem)', lineHeight:1.15, color:'#fff', letterSpacing:'-0.01em' }}>
-            {t.heroTitle}
-          </h1>
+          <TypewriterEffect text={t.heroTitle} className="font-serif font-light text-white letter-spacing-tight mb-2" />
           <p className="hero-subtitle" style={{ maxWidth:'36rem', color:'rgba(255,255,255,0.65)', fontSize:'1rem', lineHeight:1.8, fontWeight:300 }}>
             {t.heroSubtitle}
           </p>
@@ -204,7 +204,7 @@ export function MainSite() {
             </button>
           </div>
         </div>
-      </header>
+      </AuroraBackground>
 
       <main>
 
@@ -231,41 +231,47 @@ export function MainSite() {
             LIGHT BG SECTION — Services
             Section heading: dark | Card content: white (dark overlay)
         ══════════════════════════════════════════════════════ */}
-        <section id="services" className="services-section section"
-          style={{ background:'#F9FAFB', paddingBottom:'6rem' }}>
-          <div className="container gs-reveal-parent">
-            <h2 className="section-title gs-reveal-text"
+        <section id="services" className="services-section w-full flex flex-col items-center py-20"
+          style={{ background:'#F9FAFB' }}>
+          <div className="gs-reveal-parent w-full" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+            <h2 className="section-title gs-reveal-text text-center w-full"
               style={{ color:CLR_H, fontFamily:'Georgia,serif', fontWeight:300, marginBottom:'3rem' }}>
               {t.servicesTitle}
             </h2>
-            <div className="services-grid">
+            <div className="services-grid w-full" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
               {services.map((srv, idx) => (
-                <div key={idx} className="service-card gs-reveal-parent"
+                <motion.div 
+                  key={idx} 
+                  initial={{ opacity: 0, y: 50 }} 
+                  whileInView={{ opacity: 1, y: 0 }} 
+                  viewport={{ once: true, margin: "-100px" }} 
+                  transition={{ duration: 0.8, delay: idx * 0.15, ease: "easeOut" }}
+                  className="service-card rounded-2xl"
                   style={{ position:'relative', padding:0, minHeight:'400px', display:'flex',
-                    flexDirection:'column', justifyContent:'flex-end', border:'none', borderRadius:'12px', overflow:'hidden' }}>
-                  <div className="img-wrapper absolute inset-0 overflow-hidden" style={{ borderRadius:'12px' }}>
+                    flexDirection:'column', justifyContent:'center', alignItems:'flex-start', border:'none', overflow:'hidden' }}>
+                  <div className="img-wrapper absolute inset-0 overflow-hidden rounded-2xl">
                     <img src={SRV_IMGS[idx]} alt="" className="img-parallax w-full h-full object-cover scale-[1.15]" />
-                    <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, rgba(0,0,0,0.93) 0%, rgba(0,0,0,0.52) 50%, rgba(0,0,0,0.10) 100%)' }} />
+                    <div className="absolute inset-0 bg-black/40 bg-linear-to-t from-black/80 to-transparent" />
                   </div>
-                  <div className="relative z-10 p-7">
+                  <div className="relative z-10 flex flex-col items-start justify-center p-4 ml-8 mt-8 max-w-[85%] space-y-4 drop-shadow-md">
                     <h3 className="gs-reveal-text"
-                      style={{ color:CLR_DH, fontSize:'1.2rem', fontWeight:600, marginBottom:'0.8rem', fontFamily:'Georgia,serif' }}>
+                      style={{ color:CLR_DH, fontSize:'1.2rem', fontWeight:600, margin:0, fontFamily:'Georgia,serif' }}>
                       {srv.title}
                     </h3>
                     <p className="gs-reveal-text"
-                      style={{ color:'rgba(255,255,255,0.75)', fontSize:'0.85rem', lineHeight:1.7, marginBottom:'1rem' }}>
+                      style={{ color:'rgba(255,255,255,0.75)', fontSize:'0.85rem', lineHeight:1.7, margin:0 }}>
                       {srv.desc}
                     </p>
                     <ul style={{ listStyle:'none', padding:0, margin:0, display:'flex', flexDirection:'column', gap:'0.4rem' }}>
                       {srv.items.slice(0,3).map((item,i) => (
-                        <li key={i} className="gs-reveal-text"
+                        <li key={i} className="gs-reveal-text ml-2"
                           style={{ display:'flex', alignItems:'flex-start', gap:'0.5rem', color:'rgba(255,255,255,0.65)', fontSize:'0.8rem' }}>
                           <CheckCircle2 size={12} style={{ color:CLR_ACC, marginTop:'4px', flexShrink:0 }} /> {item}
                         </li>
                       ))}
                     </ul>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

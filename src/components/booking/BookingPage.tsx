@@ -38,7 +38,7 @@ const TOTAL_STEPS = 5;
 
 /* ─── Helpers ────────────────────────────────────────────────── */
 function inputClass(error?: boolean) {
-  return `w-full bg-gray-900/60 border text-base ${error ? 'border-red-500 shadow-[0_0_12px_rgba(239,68,68,0.25)]' : 'border-gray-700'} rounded-xl px-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-400/50 hover:border-gray-500 focus:bg-gray-900/80 focus:border-orange-400 transition-all duration-200`;
+  return `w-full bg-[#09090b] border text-base ${error ? 'border-red-500 shadow-[0px_0px_10px_rgba(239,68,68,0.5)]' : 'border-white/10'} rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:ring-0 focus:shadow-[0px_0px_20px_rgba(255,255,255,0.15)] focus:border-white/30 hover:border-white/20 transition-all duration-300`;
 }
 
 /* ─── BookingPage ────────────────────────────────────────────── */
@@ -147,11 +147,9 @@ export function BookingPage() {
 
   /* ─────────────────────── Render ───────────────────────────── */
   return (
-    <div className={`min-h-screen relative flex flex-col ${isRtl ? 'rtl' : 'ltr'} bg-gradient-to-br from-black via-gray-900 to-black overflow-x-hidden`}>
-
-      {/* Ambient glow orbs */}
-      <div className="absolute top-0 inset-x-0 h-[500px] pointer-events-none z-0 bg-[radial-gradient(ellipse_at_top,rgba(249,115,22,0.07)_0%,transparent_65%)]"></div>
-      <div className="absolute bottom-0 inset-x-0 h-[400px] pointer-events-none z-0 bg-[radial-gradient(ellipse_at_bottom,rgba(234,179,8,0.05)_0%,transparent_65%)]"></div>
+    <div className={`min-h-screen relative flex flex-col ${isRtl ? 'rtl' : 'ltr'} bg-black overflow-x-hidden`}>
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80" alt="Villa Background" className="absolute inset-0 w-full h-full object-cover scale-[1.03]" />
+      <div className="absolute inset-0 bg-black/75 backdrop-blur-[3px] pointer-events-none" />
 
       {/* ── Top bar ── */}
       <header className="relative z-10 border-b border-white/5 bg-black/40 backdrop-blur-lg px-6 py-4 flex items-center justify-between flex-shrink-0">
@@ -162,26 +160,21 @@ export function BookingPage() {
           {isRtl ? <ArrowRight size={18} /> : <ArrowLeft size={18} />} {t.backToSite}
         </button>
         <div className="flex items-center gap-2 text-white font-semibold tracking-widest uppercase text-sm">
-          <img
-            src="/LOGO.jpeg"
-            alt="JT Travaux"
-            className="h-8 w-auto mix-blend-screen"
-            style={{ filter: 'invert(1) brightness(2)' }}
-          />
+          
         </div>
         <div className="w-28" /> {/* Spacer */}
       </header>
 
       {/* ── Body ── */}
       <div className="relative z-10 flex-1 flex items-start justify-center p-4 sm:p-8 pt-12">
-        <div className="w-full max-w-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 sm:p-10 rounded-2xl shadow-2xl shadow-black/60">
+        <div className="w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)] relative z-20">
 
           {/* Header */}
           <div className="text-center mb-10">
             <h1 className="text-4xl font-semibold text-white mb-2 tracking-wide font-heading">
               {t.bookConsultationFree}
             </h1>
-            <p className="text-amber-400/80 text-sm font-medium tracking-widest uppercase">
+            <p className="text-white/60 text-sm font-medium tracking-widest uppercase">
               {t.freeNoCommitment}
             </p>
           </div>
@@ -354,9 +347,12 @@ export function BookingPage() {
             ) : (
               <button
                 onClick={submit}
-                className="flex-1 flex items-center justify-center gap-3 bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-400 hover:to-yellow-300 hover:scale-105 active:scale-95 text-black font-bold text-lg py-4 px-8 rounded-xl transition-all duration-200 shadow-lg shadow-orange-500/30 hover:shadow-[0_10px_40px_rgba(249,115,22,0.5)]"
+                className="relative flex-1 p-[1px] overflow-hidden rounded-xl active:scale-95 transition-transform duration-200"
               >
-                <CheckCircle size={22} /> {t.bookMyConsultationBtn}
+                <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,rgba(0,0,0,0)_0%,rgba(0,0,0,0)_50%,rgba(255,255,255,1)_100%)]" />
+                <span className="relative flex items-center justify-center gap-3 bg-[#09090b] text-white font-bold text-lg py-4 px-8 rounded-xl transition-all duration-200 hover:bg-[#18181b] hover:shadow-[0px_0px_20px_rgba(255,255,255,0.15)] shadow-lg w-full h-full">
+                  <CheckCircle size={22} /> {t.bookMyConsultationBtn}
+                </span>
               </button>
             )}
           </div>
